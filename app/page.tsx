@@ -1,4 +1,13 @@
-export default function Home() {
+import { createClient } from "@/lib/supabase/server";
+
+export default async function Home() {
+  const supabase = await createClient();
+
+  const { data: profiles, error } = await supabase
+    .from("profiles")
+    .select("id, username, experience_points")
+    .limit(5);
+
   return (
     <main
       style={{
@@ -52,39 +61,31 @@ export default function Home() {
 
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "12px",
-            marginTop: "32px",
+            marginTop: "40px",
+            padding: "20px",
+            borderRadius: "12px",
+            background: "#1e293b",
           }}
         >
-          <button
-            style={{
-              padding: "14px 24px",
-              border: 0,
-              borderRadius: "10px",
-              background: "#f8fafc",
-              color: "#0f172a",
-              fontWeight: 700,
-              cursor: "pointer",
-            }}
-          >
-            Anmelden
-          </button>
+          {error ? (
+            <p style={{ color: "#f87171" }}>
+              Supabase-Verbindung fehlgeschlagen.
+            </p>
+          ) : (
+            <p style={{ color: "#4ade80" }}>
+              ✓ Supabase-Verbindung funktioniert!
+            </p>
+          )}
 
-          <button
+          <p
             style={{
-              padding: "14px 24px",
-              border: "1px solid #334155",
-              borderRadius: "10px",
-              background: "transparent",
-              color: "#f8fafc",
-              fontWeight: 700,
-              cursor: "pointer",
+              marginTop: "12px",
+              color: "#94a3b8",
+              fontSize: "14px",
             }}
           >
-            Prognosen entdecken
-          </button>
+            Gefundene Profile: {profiles?.length ?? 0}
+          </p>
         </div>
       </div>
     </main>
