@@ -6,8 +6,11 @@ export default function LoginButton() {
   async function login() {
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
+      provider: "azure", // Microsoft
+      options: {
+        scopes: "email", // Supabase verlangt eine gültige E-Mail von Microsoft
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
     });
   }
 
@@ -25,7 +28,7 @@ export default function LoginButton() {
         cursor: "pointer",
       }}
     >
-      Mit Google anmelden
+      Mit Microsoft anmelden
     </button>
   );
 }
