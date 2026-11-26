@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
-import LoginButton from "@/components/LoginButton";
+import AuthForm from "@/components/AuthForm";
 
 type Option = { id: string; prediction_id: string; name: string; odds: number };
 
@@ -286,7 +286,7 @@ export default function Home() {
           <p style={{ margin: "24px 0 40px", fontSize: "20px", color: "#cbd5e1" }}>
             Das Prognose-Spiel, bei dem Wissen zählt.
           </p>
-          <LoginButton />
+          <AuthForm />
         </div>
       </main>
     );
