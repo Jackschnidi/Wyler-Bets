@@ -13,6 +13,7 @@ export type Prediction = {
   creator_id: string;
   title: string;
   description: string | null;
+  stake: number;
   status: "open" | "closed" | "resolved";
   winning_option_id: string | null;
   closes_at: string | null;

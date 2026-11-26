@@ -4,7 +4,7 @@ Prognose-Spiel mit Punkten. Statische Next.js-App (GitHub Pages) mit Supabase (D
 
 ## Einrichtung
 
-1. Supabase: `supabase/migrations/001_wylerbets_points.sql` im SQL Editor ausführen.
+1. Supabase: `supabase/migrations/001_wylerbets_points.sql`, danach `002_wylerbets_creators.sql` im SQL Editor ausführen.
 2. Supabase → Authentication → Providers → Azure aktivieren (Client ID + Secret aus der Azure-App-Registrierung).
 3. Supabase → Authentication → URL Configuration:
    - Site URL: `https://jackschnidi.github.io/Wyler-Bets/`
