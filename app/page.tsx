@@ -52,7 +52,7 @@ export default function Home() {
       supabase.from("balances").select("balance").eq("user_id", userId).maybeSingle(),
       supabase
         .from("predictions")
-        .select("id, title, description, closes_at, prediction_options(id, name, odds)")
+        .select("id, title, description, closes_at, prediction_options!prediction_id(id, name, odds)")
         .eq("status", "open")
         .order("closes_at", { ascending: true, nullsFirst: false }),
       supabase
