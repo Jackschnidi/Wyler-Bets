@@ -496,7 +496,13 @@ export default function Home() {
                     </form>
                   )}
 
-                  <Participants predictionId={p.id} names={names} options={p.options} />
+                  <Participants
+                    predictionId={p.id}
+                    names={names}
+                    options={p.options}
+                    canRemove={isAdmin}
+                    onRemoved={() => load(session)}
+                  />
                   <Comments predictionId={p.id} userId={userId} isAdmin={isAdmin} names={names} />
 
                   {isAdmin && (
