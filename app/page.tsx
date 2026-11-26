@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import AuthForm from "@/components/AuthForm";
+import NewPasswordForm from "@/components/NewPasswordForm";
 
 type Option = { id: string; prediction_id: string; name: string; odds: number };
 
@@ -66,6 +67,7 @@ const dangerButton = {
 export default function Home() {
   // undefined = Session wird noch geladen, null = nicht eingeloggt
   const [session, setSession] = useState<Session | null | undefined>(undefined);
+  const [recovery, setRecovery] = useState(false); // Passwort-Zurücksetzen-Link wurde geöffnet
   const [name, setName] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [balance, setBalance] = useState(0);
@@ -88,7 +90,10 @@ export default function Home() {
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
-    const { data } = supabase.auth.onAuthStateChange((_event, s) => setSession(s));
+    const { data } = supabase.auth.onAuthStateChange((event, s) => {
+      setSession(s);
+      if (event === "PASSWORD_RECOVERY") setRecovery(true);
+    });
     return () => data.subscription.unsubscribe();
   }, []);
 
@@ -268,6 +273,10 @@ export default function Home() {
 
   if (session === undefined) {
     return <main style={{ padding: "48px", textAlign: "center", color: "#94a3b8" }}>Lade …</main>;
+  }
+
+  if (session && recovery) {
+    return <NewPasswordForm onDone={() => setRecovery(false)} />;
   }
 
   if (session === null) {
