@@ -16,6 +16,7 @@ export type Prediction = {
   stake: number;
   status: "open" | "closed" | "resolved";
   winning_option_id: string | null;
+  proposed_option_id: string | null;
   closes_at: string | null;
   created_at: string;
 };
@@ -45,5 +46,13 @@ export type PointTransaction = {
   amount: number;
   reason: string | null;
   created_by: string | null;
+  created_at: string;
+};
+
+export type PredictionComment = {
+  id: number;
+  prediction_id: string;
+  user_id: string;
+  body: string;
   created_at: string;
 };
